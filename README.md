@@ -34,6 +34,16 @@ npx quartz build
 npx quartz build --serve
 ```
 
+## GitHub Pages 發行
+
+GitHub repo 需先設定：
+
+`Settings` → `Pages` → `Build and deployment` → `Source` 選 `GitHub Actions`
+
+之後只要 push 到 `main`，就會透過 `.github/workflows/deploy-pages.yaml` 自動建置並發行到：
+
+https://kimx.github.io/AiObsidian-publish/
+
 ---
 
 # Quartz v5
