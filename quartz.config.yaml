@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
+  pageTitle: Kimx AiObsidian Note Publish
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
