@@ -25,6 +25,8 @@ publish: true
 - [[C-Codex 初始設定備忘]]
 - 使用[[C-AI codegraph]]，讓它掃程式
 - 設計工具: [[R-OpenDesign]]
+- Design Md: https://x.com/Jackywxsz/status/2072614425660731498
+	- https://x.com/Jackywxsz/status/2072614425660731498
 	
 # 目前使用的skill
 ## 全域
