@@ -27,6 +27,7 @@ publish: true
 - 設計工具: [[R-OpenDesign]]
 - Design Md: https://x.com/Jackywxsz/status/2072614425660731498
 	- https://x.com/Jackywxsz/status/2072614425660731498
+- [[R-Lanshu Animated Architecture Diagram]] : 畫動態架構圖
 	
 # 目前使用的skill
 ## 全域
