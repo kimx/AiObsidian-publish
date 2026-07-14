@@ -13,6 +13,15 @@ if not "%exitCode%"=="0" exit /b %exitCode%
 
 pushd "%publishRepo%" || exit /b 1
 
+if not exist "content\index.md" (
+  powershell -NoProfile -ExecutionPolicy Bypass -Command "$content = @('---','tags: []','created:','updated:','aliases:','  - AiObsidian','publish: true','---','# AiObsidian','','Published notes from AiObsidian.'); Set-Content -LiteralPath 'content\index.md' -Value $content -Encoding UTF8"
+  if errorlevel 1 (
+    set "exitCode=%ERRORLEVEL%"
+    popd
+    exit /b %exitCode%
+  )
+)
+
 set "hasChanges="
 for /f %%i in ('git status --porcelain') do set "hasChanges=1"
 
