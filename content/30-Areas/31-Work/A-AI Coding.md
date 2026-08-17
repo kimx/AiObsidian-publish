@@ -28,6 +28,7 @@ publish: true
 - Design Md: https://x.com/Jackywxsz/status/2072614425660731498
 	- https://x.com/Jackywxsz/status/2072614425660731498
 - [[R-Lanshu Animated Architecture Diagram]] : 畫動態架構圖
+- [[R-專案收錄 73 個品牌 DESIGN.md]]
 	
 # 目前使用的skill
 ## 全域
