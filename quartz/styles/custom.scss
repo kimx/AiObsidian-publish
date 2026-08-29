@@ -1,3 +1,288 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+.page {
+  max-width: 1100px;
+
+  > #quartz-body {
+    .sidebar.right {
+      display: none;
+    }
+
+    .sidebar.left {
+      gap: 1.5rem;
+      padding: 3rem 0 2rem;
+    }
+  }
+}
+
+@media all and ($tablet), all and ($desktop) {
+  .page > #quartz-body {
+    grid-template-columns: minmax(230px, 240px) minmax(0, 820px);
+    grid-template-areas:
+      "grid-sidebar-left grid-header"
+      "grid-sidebar-left grid-center"
+      "grid-sidebar-left grid-footer";
+    column-gap: 3rem;
+  }
+}
+
+@media all and ($mobile) {
+  .page > #quartz-body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "grid-sidebar-left"
+      "grid-header"
+      "grid-center"
+      "grid-footer";
+  }
+}
+
+.page-title {
+  color: var(--dark);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+
+  &::after {
+    content: "AI × Software Development Notes";
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--gray);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+}
+
+.search,
+.explorer,
+.darkmode,
+.reader {
+  border-color: var(--lightgray);
+}
+
+.explorer {
+  border-top: 1px solid var(--lightgray);
+  padding-top: 1.25rem;
+}
+
+.darkmode,
+.reader {
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+}
+
+.breadcrumb-container {
+  color: var(--gray);
+  font-size: 0.82rem;
+}
+
+.article-title {
+  color: var(--dark);
+  font-size: clamp(2rem, 4vw, 2.25rem);
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+}
+
+.content-meta {
+  color: var(--gray);
+  font-size: 0.82rem;
+}
+
+article {
+  font-size: 16.5px;
+  line-height: 1.8;
+
+  > h1,
+  > h2,
+  > h3,
+  > h4 {
+    color: var(--dark);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  > h2 {
+    margin-top: 3rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--lightgray);
+    font-size: 1.5rem;
+  }
+
+  > h3 {
+    margin-top: 2.25rem;
+    font-size: 1.2rem;
+  }
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  table {
+    margin: 1.15rem 0;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--secondary) 35%, transparent);
+    text-underline-offset: 0.16em;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  :not(pre) > code {
+    border: 1px solid var(--lightgray);
+    border-radius: 5px;
+    background: var(--highlight);
+    padding: 0.08rem 0.3rem;
+    color: var(--dark);
+    font-size: 0.88em;
+  }
+
+  pre {
+    border: 1px solid var(--lightgray);
+    border-radius: 10px;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--secondary);
+    color: var(--gray);
+  }
+
+  table {
+    border: 1px solid var(--lightgray);
+    border-radius: 8px;
+  }
+
+  th {
+    background: var(--highlight);
+    color: var(--dark);
+  }
+}
+
+.toc,
+.backlinks {
+  border-top: 1px solid var(--lightgray);
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+}
+
+.home-subtitle {
+  margin-top: -0.5rem;
+  color: var(--gray);
+  font-size: 1.08rem;
+}
+
+.home-search-hint {
+  border: 1px solid var(--lightgray);
+  border-radius: 10px;
+  background: var(--highlight);
+  padding: 0.85rem 1rem;
+  color: var(--darkgray);
+
+  strong,
+  span {
+    display: block;
+  }
+
+  span {
+    margin-top: 0.2rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+  }
+}
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.topic-card {
+  display: flex;
+  min-height: 8.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 11px;
+  background: var(--light);
+  padding: 1rem;
+  color: var(--darkgray);
+  text-decoration: none;
+
+  strong {
+    color: var(--dark);
+  }
+
+  span:nth-child(2) {
+    color: var(--gray);
+    font-size: 0.86rem;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  span:last-child {
+    margin-top: auto;
+    color: var(--secondary);
+  }
+
+  &:hover {
+    border-color: var(--secondary);
+    background: var(--highlight);
+    color: var(--darkgray);
+  }
+}
+
+.recent-notes {
+  border-top: 1px solid var(--lightgray);
+
+  a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--lightgray);
+    padding: 0.85rem 0;
+    color: var(--darkgray);
+    text-decoration: none;
+
+    &:hover span {
+      color: var(--secondary);
+    }
+  }
+
+  time {
+    flex-shrink: 0;
+    color: var(--gray);
+    font-size: 0.8rem;
+  }
+}
+
+footer {
+  color: var(--gray);
+  font-size: 0.8rem;
+}
+
+@media all and ($mobile) {
+  .page > #quartz-body .sidebar.left {
+    width: 100%;
+    align-items: stretch;
+    padding-top: 1.5rem;
+  }
+
+  .topic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topic-card {
+    min-height: 0;
+  }
+
+  .recent-notes a {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}

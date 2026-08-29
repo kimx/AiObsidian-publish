@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Kimx AiObsidian Note Publish
+  pageTitle: AiObsidian
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
   analytics:
     provider: plausible
-  locale: en-US
+  locale: zh-TW
   baseUrl: kimx.github.io/AiObsidian-publish
   ignorePatterns:
     - private
@@ -16,29 +16,29 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
+      header: Noto Sans TC
+      body: Noto Sans TC
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#f8fafc"
+        lightgray: "#e2e8f0"
+        gray: "#64748b"
+        darkgray: "#0f172a"
+        dark: "#0f172a"
+        secondary: "#4f46e5"
+        tertiary: "#4338ca"
+        highlight: "#eef2ff"
         textHighlight: "#fff23688"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#0f172a"
+        lightgray: "#1f2937"
+        gray: "#94a3b8"
+        darkgray: "#e5e7eb"
+        dark: "#f8fafc"
+        secondary: "#818cf8"
+        tertiary: "#a5b4fc"
+        highlight: "#1e293b"
         textHighlight: "#b3aa0288"
 plugins:
   - source: github:quartz-community/created-modified-date
@@ -81,8 +81,10 @@ plugins:
     enabled: true
     order: 50
     layout:
-      position: right
+      position: afterBody
       priority: 30
+      display: desktop-only
+      condition: has-toc
   - source: github:quartz-community/crawl-links
     enabled: true
     options:
@@ -158,23 +160,18 @@ plugins:
       position: left
       priority: 50
   - source: github:quartz-community/graph
-    enabled: true
-    layout:
-      position: right
-      priority: 10
+    enabled: false
   - source: github:quartz-community/search
     enabled: true
     layout:
       position: left
       priority: 20
-      group: toolbar
-      groupOptions:
-        grow: true
   - source: github:quartz-community/backlinks
     enabled: true
     layout:
-      position: right
+      position: afterBody
       priority: 50
+      condition: has-backlinks
   - source: github:quartz-community/article-title
     enabled: true
     layout:
@@ -199,13 +196,13 @@ plugins:
     enabled: true
     layout:
       position: left
-      priority: 30
+      priority: 60
       group: toolbar
   - source: github:quartz-community/reader-mode
     enabled: true
     layout:
       position: left
-      priority: 35
+      priority: 65
       group: toolbar
   - source: github:quartz-community/breadcrumbs
     enabled: true
@@ -225,8 +222,9 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        AiObsidian: /
+        Notes by Kim: /
+        GitHub: https://github.com/kimx/AiObsidian-publish
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer
@@ -275,7 +273,7 @@ plugins:
 layout:
   groups:
     toolbar:
-      priority: 35
+      priority: 60
       direction: row
       gap: 0.5rem
   byPageType:
