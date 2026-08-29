@@ -31,11 +31,11 @@ publish: true
     <span>Practical notes from setup through delivery</span>
     <span aria-hidden="true">→</span>
   </a>
-  <a class="topic-card" href="./30-Areas/31-Work/A-AI%20Coding">
+  <div class="topic-card">
     <strong>Knowledge Management</strong>
     <span>Connected notes for ideas, tools, and projects</span>
     <span aria-hidden="true">→</span>
-  </a>
+  </div>
 </div>
 
 ## Recent Notes

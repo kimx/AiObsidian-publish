@@ -223,7 +223,7 @@ plugins:
     options:
       links:
         AiObsidian: /
-        Notes by Kim: /
+        Notes by Kim: https://github.com/kimx
         GitHub: https://github.com/kimx/AiObsidian-publish
   - source: github:quartz-community/recent-notes
     enabled: false
