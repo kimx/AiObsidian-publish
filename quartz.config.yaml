@@ -16,30 +16,46 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Noto Sans TC
-      body: Noto Sans TC
-      code: IBM Plex Mono
+      header:
+        name: Outfit
+        weights:
+          - 500
+          - 600
+          - 700
+          - 800
+      body:
+        name: Noto Sans TC
+        weights:
+          - 400
+          - 500
+          - 600
+        includeItalic: true
+      code:
+        name: IBM Plex Mono
+        weights:
+          - 400
+          - 500
     colors:
       lightMode:
-        light: "#f8fafc"
-        lightgray: "#e2e8f0"
-        gray: "#64748b"
-        darkgray: "#0f172a"
-        dark: "#0f172a"
-        secondary: "#4f46e5"
-        tertiary: "#4338ca"
-        highlight: "#eef2ff"
-        textHighlight: "#fff23688"
+        light: "#f8fbff"
+        lightgray: "#edf3ff"
+        gray: "#5f6f89"
+        darkgray: "#16233d"
+        dark: "#0e1730"
+        secondary: "#2563eb"
+        tertiary: "#3b82f6"
+        highlight: "#eaf1ff"
+        textHighlight: "#93c5fd55"
       darkMode:
-        light: "#0f172a"
-        lightgray: "#1f2937"
-        gray: "#94a3b8"
-        darkgray: "#e5e7eb"
+        light: "#0a1020"
+        lightgray: "#14233f"
+        gray: "#8da2c8"
+        darkgray: "#d8e3ff"
         dark: "#f8fafc"
-        secondary: "#818cf8"
-        tertiary: "#a5b4fc"
-        highlight: "#1e293b"
-        textHighlight: "#b3aa0288"
+        secondary: "#3b82f6"
+        tertiary: "#60a5fa"
+        highlight: "#142347"
+        textHighlight: "#3b82f655"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
@@ -159,8 +175,13 @@ plugins:
     layout:
       position: left
       priority: 50
-  - source: github:quartz-community/graph
-    enabled: false
+  - source:
+      name: graph
+      repo: ./.quartz/plugins/graph-copy
+    enabled: true
+    layout:
+      position: right
+      priority: 70
   - source: github:quartz-community/search
     enabled: true
     layout:
@@ -260,11 +281,11 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-    enabled: true
+    enabled: false
     options:
       theme: default
   - source: github:quartz-community/obsidian-plugin-excalidraw
-    enabled: true
+    enabled: false
     options:
       enableInteraction: true
       darkMode: auto

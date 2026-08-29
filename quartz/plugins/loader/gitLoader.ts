@@ -311,6 +311,29 @@ function trySymlink(target: string, linkPath: string): void {
     fs.symlinkSync(target, linkPath, "dir")
   } catch (err: unknown) {
     if ((err as NodeJS.ErrnoException).code === "EEXIST") return
+    const code = (err as NodeJS.ErrnoException).code
+    if (code === "EPERM" || code === "EACCES") {
+      const absoluteTarget = path.resolve(path.dirname(linkPath), target)
+      if (!fs.existsSync(absoluteTarget)) {
+        throw err
+      }
+
+      fs.mkdirSync(path.dirname(linkPath), { recursive: true })
+      if (fs.existsSync(linkPath)) {
+        try {
+          fs.rmSync(linkPath, { recursive: true, force: true })
+        } catch {
+          // keep going if path cannot be removed here; fallback may still work
+        }
+      }
+
+      try {
+        fs.cpSync(absoluteTarget, linkPath, { recursive: true })
+        return
+      } catch {
+        throw err
+      }
+    }
     throw err
   }
 }
@@ -459,7 +482,7 @@ export async function installPlugin(
       console.log(styleText("cyan", `→`), `Linking ${spec.name} from ${spec.repo}...`)
     }
 
-    fs.symlinkSync(spec.repo, pluginDir, "dir")
+    trySymlink(spec.repo, pluginDir)
 
     if (options.verbose) {
       console.log(styleText("green", `✓`), `Linked ${spec.name}`)

@@ -15,22 +15,81 @@ html {
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   box-sizing: border-box;
   background-color: var(--light);
+  background-image: radial-gradient(
+    80% 55% at 70% -10%,
+    color-mix(in srgb, var(--secondary) 6%, transparent),
+    transparent 70%
+  );
   font-family: var(--bodyFont);
   color: var(--darkgray);
+  letter-spacing: 0.003rem;
+  text-wrap: pretty;
+  min-height: 100dvh;
+  position: relative;
+  font-feature-settings: "cv01", "cv02", "cv03", "cv11", "case", "ss01";
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  background-image: none;
+}
+
+#quartz-root {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
 }
 
 .text-highlight {
   background-color: var(--textHighlight);
-  padding: 0 0.1rem;
+  padding: 0 0.2rem;
   border-radius: 5px;
+  border: 1px solid color-mix(in srgb, var(--secondary) 18%, transparent);
 }
+
 ::selection {
   background: color-mix(in srgb, var(--tertiary) 60%, rgba(255, 255, 255, 0));
   color: var(--darkgray);
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  transform: translateY(-160%);
+  border-radius: 999px;
+  border: 1px solid var(--lightgray);
+  background: var(--highlight);
+  color: var(--dark);
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  z-index: 45;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+  opacity: 0;
+  text-decoration: none;
+  box-shadow: 0 10px 20px color-mix(in srgb, var(--dark) 10%, transparent);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 p,
@@ -82,13 +141,29 @@ strong {
 }
 
 a {
+  position: relative;
   font-weight: $semiBoldWeight;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition:
+    color 0.24s ease,
+    background-color 0.24s ease,
+    transform 0.2s ease,
+    text-underline-offset 0.24s ease;
   color: var(--secondary);
 
   &:hover {
     color: var(--tertiary);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(1px) scale(0.99);
+  }
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--secondary) 35%, transparent);
+    outline-offset: 3px;
+    border-radius: 0.3rem;
   }
 
   &.internal {
@@ -162,6 +237,10 @@ a {
 .page {
   max-width: calc(#{map.get($breakpoints, desktop)} + 300px);
   margin: 0 auto;
+  --ux-z-overlay: 45;
+  --ux-z-sticky: 30;
+  --ux-z-nav: 20;
+
   & article {
     & > h1 {
       font-size: 2rem;
@@ -189,6 +268,8 @@ a {
   }
 
   & > #quartz-body {
+    position: relative;
+    padding-block: clamp(1rem, 2.5vw, 2rem);
     display: grid;
     grid-template-columns: #{map.get($desktopGrid, templateColumns)};
     grid-template-rows: #{map.get($desktopGrid, templateRows)};
@@ -226,10 +307,15 @@ a {
       display: flex;
       height: 100vh;
       position: sticky;
+      background: color-mix(in srgb, var(--highlight) 35%, transparent);
+      border: 1px solid color-mix(in srgb, var(--lightgray) 80%, transparent);
+      border-radius: 1.15rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 40px color-mix(in srgb, var(--dark) 8%, transparent);
     }
 
     & .sidebar.left {
-      z-index: 1;
+      z-index: var(--ux-z-sticky);
       grid-area: grid-sidebar-left;
       flex-direction: column;
       @media all and ($mobile) {
@@ -248,6 +334,7 @@ a {
       grid-area: grid-sidebar-right;
       margin-right: 0;
       flex-direction: column;
+      justify-content: flex-start;
       @media all and ($mobile) {
         margin-left: inherit;
         margin-right: inherit;
@@ -270,6 +357,7 @@ a {
     & .page-header,
     & .page-footer {
       margin-top: 1rem;
+      border-radius: 1rem;
     }
 
     & .page-header {
@@ -388,6 +476,65 @@ input[type="checkbox"] {
   }
 }
 
+button,
+input[type="button"],
+input[type="submit"] {
+  font: inherit;
+  border: 1px solid color-mix(in srgb, var(--secondary) 30%, var(--lightgray));
+  border-radius: 10px;
+  color: var(--dark);
+  background: color-mix(in srgb, var(--light) 80%, transparent);
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--secondary) 60%, transparent);
+    background: color-mix(in srgb, var(--highlight) 85%, var(--light));
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px color-mix(in srgb, var(--secondary) 20%, transparent);
+  }
+
+  &:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--secondary) 40%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+:where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--secondary) 45%, transparent);
+  outline-offset: 2px;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    color 0.24s ease,
+    background-color 0.24s ease,
+    border-color 0.24s ease,
+    transform 0.2s ease;
+}
+
 blockquote {
   margin: 1rem 0;
   border-left: 3px solid var(--secondary);
@@ -439,21 +586,27 @@ h6 {
 
 // typography improvements
 h1 {
-  font-size: 1.75rem;
+  font-size: clamp(2rem, 2.5vw, 2.8rem);
   margin-top: 2.25rem;
   margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  line-height: 1.16;
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: clamp(1.55rem, 1.9vw, 2rem);
   margin-top: 1.9rem;
   margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  line-height: 1.28;
 }
 
 h3 {
-  font-size: 1.12rem;
+  font-size: clamp(1.2rem, 1.5vw, 1.45rem);
   margin-top: 1.62rem;
   margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.32;
 }
 
 h4,
@@ -679,5 +832,5 @@ iframe.pdf {
   height: 3px;
   background: var(--secondary);
   transition: width 0.2s ease;
-  z-index: 9999;
+  z-index: var(--ux-z-overlay, 45);
 }
